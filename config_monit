@@ -3,11 +3,9 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ]
 then  
   echo "Usage: 'basename $0' [The correct way to run the script is: ./config_monit 'IP Address of Server' 'Log Email Address']" | tee -a monit-install.log ; exit 0 ; 
 else
-echo "Now installing Send Mail..."
-yum - y install sendmail
-systemctl start sendmail && systeemctl enable sendamil
 echo "Now installing Monit..." 
 yum -y install monit
+yum install epel-release
 echo "Now Configuring Monit..." | tee -a monit-install.log && rm /etc/monitrc >& 1 >> monit-install.log
 wget https://github.com/SpencerSchwartz/a3/raw/main/client_config | tee -a monit-install.log
 mv client_config /etc/ && cp /etc/client_config /etc/monitrc >& 1 >> monit-install.log && chmod 600 /etc/monitrc >& 1 >> monit-install.log &&
@@ -19,4 +17,6 @@ echo "Remote monitoring now configured" | tee -a monit-setup.log
 firewall-cmd --zone=public --add-port=514/udp --permanent | tee -a monit-setup.log
 firewall-cmd --zone=public --add-port=2812/tcp --permanent | tee -a monit-setup.log
 firewall-cmd --reload | tee -a monit-install.log
+yum -y install sendmail
+systemctl start sendmail
 fi
