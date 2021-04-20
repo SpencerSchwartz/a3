@@ -19,4 +19,5 @@ firewall-cmd --zone=public --add-port=2812/tcp --permanent | tee -a monit-setup.
 firewall-cmd --reload | tee -a monit-install.log
 yum -y install sendmail
 systemctl start sendmail
+systemctl start monit
 fi
