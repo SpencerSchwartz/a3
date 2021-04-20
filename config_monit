@@ -5,7 +5,7 @@ then
 else
 echo "Now installing Monit..." 
 yum -y install monit
-yum install epel-release
+yum -y install epel-release
 echo "Now Configuring Monit..." | tee -a monit-install.log && rm /etc/monitrc >& 1 >> monit-install.log
 wget https://github.com/SpencerSchwartz/a3/raw/main/client_config | tee -a monit-install.log
 mv client_config /etc/ && cp /etc/client_config /etc/monitrc >& 1 >> monit-install.log && chmod 600 /etc/monitrc >& 1 >> monit-install.log &&
