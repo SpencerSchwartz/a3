@@ -4,20 +4,29 @@ then
   echo "Usage: 'basename $0' [The correct way to run the script is: ./config_monit 'IP Address of Server' 'Log Email Address']" | exit 0 ; 
 else
 echo "Now installing Monit..." 
+#Install monit
 yum -y install epel-release
 yum -y install monit
 echo "Now Configuring Monit..."
+#Gets monitrc config file
 wget https://github.com/SpencerSchwartz/a3/raw/main/client_config | tee -a monit-install.log
+#moves the config file to /etc, renames the file to monitrc, and configures permissiosns 
 mv client_config /etc/ && cp /etc/client_config /etc/monitrc && chmod 600 /etc/monitrc 
+#Adds alert email
 sed -i "s/root@localhost/root@$1/g" /etc/monitrc && sed -i "s/alert emailhere/alert $2/g" /etc/monitrc 
+#Starts monit
 echo "Now restarting Monit..." && systemctl restart monit && echo "Monit now configured" 
 echo "Now setting up remote monitoring..." && sed -i "s/#*.* @@remote-host:514/*.* @$1:514/g"  
+#Restarts syslong
 systemctl restart rsyslog
 echo "Remote monitoring now configured" 
-firewall-cmd --zone=public --add-port=514/udp --permanent | tee -a monit-setup.log
-firewall-cmd --zone=public --add-port=2812/tcp --permanent | tee -a monit-setup.log
+#Configures firewall
+firewall-cmd --zone=public --add-port=514/udp --permanent
+firewall-cmd --zone=public --add-port=2812/tcp --permanent 
 firewall-cmd --reload 
+#Installs and starts mail service
 yum -y install sendmail
 systemctl start sendmail
+#Ensures minit has started 
 systemctl start monit
 fi
