@@ -27,6 +27,6 @@ firewall-cmd --reload
 #Installs and starts mail service
 yum -y install sendmail
 systemctl start sendmail
-#Ensures minit has started 
+#Ensures monit has started 
 systemctl start monit
 fi
