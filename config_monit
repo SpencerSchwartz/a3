@@ -9,7 +9,7 @@ yum -y install epel-release
 yum -y install monit
 echo "Now Configuring Monit..."
 #Gets monitrc config file
-wget https://github.com/SpencerSchwartz/a3/raw/main/client_config | tee -a monit-install.log
+wget https://github.com/SpencerSchwartz/a3/raw/main/client_config 
 #moves the config file to /etc, renames the file to monitrc, and configures permissiosns 
 mv client_config /etc/ && cp /etc/client_config /etc/monitrc && chmod 600 /etc/monitrc 
 #Adds alert email
