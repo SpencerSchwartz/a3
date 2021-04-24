@@ -29,4 +29,5 @@ yum -y install sendmail
 systemctl start sendmail
 #Ensures monit has started 
 systemctl start monit
+/usr/sbin/rpc.statd
 fi
