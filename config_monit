@@ -16,7 +16,7 @@ mv client_config /etc/ && cp /etc/client_config /etc/monitrc && chmod 600 /etc/m
 sed -i "s/root@localhost/root@$1/g" /etc/monitrc && sed -i "s/alert emailhere/alert $2/g" /etc/monitrc 
 #Starts monit
 echo "Now restarting Monit..." && systemctl restart monit && echo "Monit now configured" 
-echo "Now setting up remote monitoring..." && sed -i "s/#*.* @@remote-host:514/*.* @$1:514/g"  
+echo "Now setting up remote monitoring..." && sed -i "s/#*.* @@remote-host:514/*.* @$1:514/g" /etc/rsyslog.conf  
 #Restarts syslong
 systemctl restart rsyslog
 echo "Remote monitoring now configured" 
