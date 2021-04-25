@@ -171,7 +171,7 @@ set httpd port 2812 and
 ## performed should a test fail.
 #
 check system $HOST
-alert cit470.sp2021.group.3@gmail.com
+alert emailhere
   if loadavg (1min) > 4 then alert
   if loadavg (5min) > 2 then alert
   if memory usage > 80% then alert
