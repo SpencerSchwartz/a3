@@ -1,0 +1,20 @@
+#Author: Asa Brown
+#This file will overload system resources and output to the user whether
+# or not monit is alerting due to the errors
+
+echo "testing disk space"
+dd if=/dev/zero of=/home/diskhog bs=1M count=80000
+dd if=/dev/zero of=/var/diskhog bs=1M count=80000
+dd if=/dev/zero of=/diskhog bs=1M count=80000
+sleep 90
+monit summary | grep ROOTFS
+monit summary | grep HOME
+monit summary | grep VAR
+rm /diskhog -f
+rm /home/diskhog -f
+rm /var/diskhog -f
+
+echo "testing cpu and memory"
+yum install stress -y
+stress -t 120 -d 100 -c 100
+monit summary | grep group3
