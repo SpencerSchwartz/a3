@@ -1,0 +1,3 @@
+#!/bin/bash
+./client_testing_services
+./client_testing_resources
