@@ -1,3 +1,4 @@
+#!/bin/bash
 #Author: Asa Brown
 #This file will overload system resources and output to the user whether
 # or not monit is alerting due to the errors
