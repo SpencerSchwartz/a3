@@ -1,0 +1,21 @@
+#!/bin/bash 
+echo "Killing SSH"
+systemctl stop sshd
+sleep 120; monit summary | grep ssh
+
+echo "Killing syslog"
+systemctl stop rsyslog
+sleep 120; monit summary | grep rsyslog
+
+echo "Killing nfs"
+systemctl stop nfs
+sleep 120; monit summary | grep nfs
+
+echo "Killing SSH"
+systemctl stop sshd
+sleep 120; monit summary | grep ssh
+
+echo "Killing LDAP"
+systemctl stop nslcd
+sleep 120; monit summary | grep slapd
+
